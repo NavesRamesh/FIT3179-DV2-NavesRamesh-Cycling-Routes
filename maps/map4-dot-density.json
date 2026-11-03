@@ -1,0 +1,191 @@
+
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Geographical distribution of recorded recreational cycling trails across Australia, with subtle latitude and longitude grid lines.",
+
+  "width": 520,
+  "height": 400,
+
+  "title": {
+    "text": "Geographical Distribution of Cycling Trails",
+    "subtitle": "Dot colour represents the recorded type of cycling trail.",
+    "anchor": "start",
+    "font": "Arial",
+    "fontSize": 19,
+    "subtitleFontSize": 12,
+    "color": "#174A70"
+  },
+
+  "projection": {
+    "type": "equalEarth",
+    "center": [134, -27],
+    "scale": 550
+  },
+
+  "layer": [
+
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "transform": [
+        {
+          "filter": "datum.id == 36"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "#EEF1F4",
+        "stroke": "#8495A5",
+        "strokeWidth": 0.8
+      }
+    },
+
+    {
+      "data": {
+        "values": [
+          {"grid": "lat20", "order": 1, "Longitude": 120.5, "Latitude": -20},
+          {"grid": "lat20", "order": 2, "Longitude": 130, "Latitude": -20},
+          {"grid": "lat20", "order": 3, "Longitude": 140, "Latitude": -20},
+          {"grid": "lat20", "order": 4, "Longitude": 148.5, "Latitude": -20},
+
+          {"grid": "lat30", "order": 1, "Longitude": 115.5, "Latitude": -30},
+          {"grid": "lat30", "order": 2, "Longitude": 125, "Latitude": -30},
+          {"grid": "lat30", "order": 3, "Longitude": 135, "Latitude": -30},
+          {"grid": "lat30", "order": 4, "Longitude": 145, "Latitude": -30},
+          {"grid": "lat30", "order": 5, "Longitude": 153, "Latitude": -30},
+
+          {"grid": "lat40tas", "order": 1, "Longitude": 144, "Latitude": -40},
+          {"grid": "lat40tas", "order": 2, "Longitude": 146, "Latitude": -40},
+          {"grid": "lat40tas", "order": 3, "Longitude": 148, "Latitude": -40},
+
+          {"grid": "lon120", "order": 1, "Longitude": 120, "Latitude": -34},
+          {"grid": "lon120", "order": 2, "Longitude": 120, "Latitude": -30},
+          {"grid": "lon120", "order": 3, "Longitude": 120, "Latitude": -25},
+          {"grid": "lon120", "order": 4, "Longitude": 120, "Latitude": -20},
+
+          {"grid": "lon130", "order": 1, "Longitude": 130, "Latitude": -34},
+          {"grid": "lon130", "order": 2, "Longitude": 130, "Latitude": -30},
+          {"grid": "lon130", "order": 3, "Longitude": 130, "Latitude": -25},
+          {"grid": "lon130", "order": 4, "Longitude": 130, "Latitude": -20},
+          {"grid": "lon130", "order": 5, "Longitude": 130, "Latitude": -15},
+
+          {"grid": "lon140", "order": 1, "Longitude": 140, "Latitude": -37},
+          {"grid": "lon140", "order": 2, "Longitude": 140, "Latitude": -32},
+          {"grid": "lon140", "order": 3, "Longitude": 140, "Latitude": -27},
+          {"grid": "lon140", "order": 4, "Longitude": 140, "Latitude": -22},
+          {"grid": "lon140", "order": 5, "Longitude": 140, "Latitude": -17},
+          {"grid": "lon140", "order": 6, "Longitude": 140, "Latitude": -13},
+
+          {"grid": "lon150", "order": 1, "Longitude": 150, "Latitude": -37},
+          {"grid": "lon150", "order": 2, "Longitude": 150, "Latitude": -32},
+          {"grid": "lon150", "order": 3, "Longitude": 150, "Latitude": -27},
+          {"grid": "lon150", "order": 4, "Longitude": 150, "Latitude": -22}
+        ]
+      },
+      "mark": {
+        "type": "line",
+        "color": "#A8B8C8",
+        "strokeWidth": 0.8,
+        "strokeDash": [3, 3],
+        "opacity": 0.8
+      },
+      "encoding": {
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+        "detail": {
+          "field": "grid"
+        },
+        "order": {
+          "field": "order"
+        }
+      }
+    },
+
+    {
+      "data": {
+        "url": "data/cycling-trails.csv",
+        "format": {
+          "type": "csv"
+        }
+      },
+      "mark": {
+        "type": "circle",
+        "size": 100,
+        "stroke": "white",
+        "strokeWidth": 0.7,
+        "opacity": 0.95
+      },
+      "encoding": {
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "Trail_Type",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Recreational rail trail",
+              "Shared path / cycling route",
+              "Recreational trail"
+            ],
+            "range": [
+              "#E65B58",
+              "#F2994A",
+              "#9272B5"
+            ]
+          },
+          "legend": {
+            "title": "Trail type",
+            "orient": "bottom",
+            "direction": "horizontal"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "Trail",
+            "type": "nominal",
+            "title": "Trail"
+          },
+          {
+            "field": "State",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "Trail_Type",
+            "type": "nominal",
+            "title": "Trail type"
+          },
+          {
+            "field": "Length_KM",
+            "type": "quantitative",
+            "title": "Length (km)"
+          }
+        ]
+      }
+    }
+  ],
+
+  "config": {
+    "background": "white",
+    "view": {
+      "stroke": null
+    }
+  }
+}

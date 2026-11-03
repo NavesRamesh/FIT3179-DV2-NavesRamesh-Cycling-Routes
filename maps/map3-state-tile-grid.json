@@ -1,0 +1,162 @@
+
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Tile grid showing the number of open recreational rail trails across Australian states and territories.",
+  "width": 500,
+  "height": 400,
+  "title": {
+    "text": "Number of Open Cycling Trails by State",
+    "subtitle": "Each tile represents a state or territory. Darker blue indicates more open trails.",
+    "anchor": "start",
+    "font": "Arial",
+    "fontSize": 17,
+    "subtitleFontSize": 11,
+    "color": "#174A70"
+  },
+  "data": {
+    "values": [
+      {"State": "WA", "Trails": 13, "x": 0, "y": 2},
+      {"State": "NT", "Trails": 2, "x": 1, "y": 3},
+      {"State": "SA", "Trails": 13, "x": 1, "y": 1},
+      {"State": "QLD", "Trails": 5, "x": 2, "y": 3},
+      {"State": "NSW", "Trails": 5, "x": 2, "y": 2},
+      {"State": "VIC", "Trails": 25, "x": 2, "y": 1},
+      {"State": "TAS", "Trails": 5, "x": 2, "y": 0}
+    ]
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "square",
+        "size": 8500,
+        "stroke": "white",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative",
+          "scale": {
+            "domain": [-0.5, 2.5],
+            "range": [80, 380],
+            "nice": false
+          },
+          "axis": null
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative",
+          "scale": {
+            "domain": [-0.5, 3.5],
+            "nice": false
+          },
+          "axis": null
+        },
+        "color": {
+          "field": "Trails",
+          "type": "quantitative",
+          "scale": {
+            "domain": [0, 25],
+            "range": [
+              "#E8F1F8",
+              "#B8D5E8",
+              "#78A9CF",
+              "#397EAD",
+              "#174A70"
+            ]
+          },
+          "legend": {
+            "title": "Number of open trails",
+            "orient": "bottom",
+            "gradientLength": 220
+          }
+        },
+        "tooltip": [
+          {
+            "field": "State",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "Trails",
+            "type": "quantitative",
+            "title": "Open trails"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "font": "Arial",
+        "fontSize": 13,
+        "fontWeight": "bold",
+        "color": "#123B59",
+        "dy": -11
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative",
+          "scale": {
+            "domain": [-0.5, 2.5],
+            "range": [80, 380],
+            "nice": false
+          },
+          "axis": null
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative",
+          "scale": {
+            "domain": [-0.5, 3.5],
+            "nice": false
+          },
+          "axis": null
+        },
+        "text": {"field": "State"}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "font": "Arial",
+        "fontSize": 16,
+        "fontWeight": "bold",
+        "color": "#123B59",
+        "dy": 12
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative",
+          "scale": {
+            "domain": [-0.5, 2.5],
+            "range": [80, 380],
+            "nice": false
+          },
+          "axis": null
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative",
+          "scale": {
+            "domain": [-0.5, 3.5],
+            "nice": false
+          },
+          "axis": null
+        },
+        "text": {
+          "field": "Trails",
+          "type": "quantitative"
+        }
+      }
+    }
+  ],
+  "config": {
+    "background": "white",
+    "view": {
+      "stroke": null
+    }
+  }
+}

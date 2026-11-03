@@ -1,0 +1,125 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Heatmap of average 15-minute cyclist counts across selected Brisbane monitoring locations, based on available observations on 14, 16, 18 and 19 October 2025.",
+  "data": {
+    "url": "data/chart9-bikeway-time-heatmap.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "width": 780,
+  "height": {
+    "step": 27
+  },
+  "title": {
+    "text": "When Are Brisbane's Bikeways Busiest?",
+    "subtitle": "Average cyclists recorded in each 15-minute interval | October 2025",
+    "anchor": "start",
+    "fontSize": 19,
+    "subtitleFontSize": 12,
+    "color": "#245B45",
+    "subtitleColor": "#68766D"
+  },
+  "mark": {
+    "type": "rect",
+    "cornerRadius": 2,
+    "stroke": "#FFFFFF",
+    "strokeWidth": 0.5
+  },
+  "encoding": {
+    "x": {
+      "field": "Time",
+      "type": "ordinal",
+      "sort": {
+        "field": "Time_Minutes",
+        "order": "ascending"
+      },
+      "title": "Time of day",
+      "axis": {
+        "labelAngle": -45,
+        "labelFontSize": 10,
+        "titleFontSize": 12,
+        "labelColor": "#52635A",
+        "titleColor": "#52635A",
+        "labelOverlap": false
+      }
+    },
+    "y": {
+      "field": "Site",
+      "type": "ordinal",
+      "sort": {
+        "field": "Mean_Cyclists",
+        "op": "mean",
+        "order": "descending"
+      },
+      "title": "Monitoring location",
+      "axis": {
+        "labelFontSize": 11,
+        "labelLimit": 110,
+        "labelColor": "#52635A",
+        "titleFontSize": 12,
+        "titleColor": "#52635A"
+      }
+    },
+    "color": {
+      "field": "Mean_Cyclists",
+      "type": "quantitative",
+      "title": "Mean cyclists / 15 min",
+      "scale": {
+        "scheme": "tealblues"
+      },
+      "legend": {
+        "orient": "bottom",
+        "direction": "horizontal",
+        "gradientLength": 300,
+        "titleFontSize": 11,
+        "labelFontSize": 10
+      }
+    },
+    "tooltip": [
+      {
+        "field": "Site",
+        "type": "nominal",
+        "title": "Site code"
+      },
+      {
+        "field": "Location",
+        "type": "nominal",
+        "title": "Location"
+      },
+      {
+        "field": "Time",
+        "type": "nominal",
+        "title": "Time"
+      },
+      {
+        "field": "Mean_Cyclists",
+        "type": "quantitative",
+        "title": "Average cyclists",
+        "format": ".1f"
+      },
+      {
+        "field": "Observation_Days",
+        "type": "quantitative",
+        "title": "Observed days"
+      }
+    ]
+  },
+  "config": {
+    "background": "#FFFFFF",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "grid": false,
+      "domainColor": "#CBD5CE",
+      "tickColor": "#CBD5CE",
+      "labelFont": "Arial",
+      "titleFont": "Arial"
+    },
+    "legend": {
+      "labelFont": "Arial",
+      "titleFont": "Arial"
+    }
+  }
+}

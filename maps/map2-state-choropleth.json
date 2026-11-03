@@ -1,0 +1,202 @@
+
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+
+  "description": "Choropleth map showing the total length of open recreational rail trails across Australian states.",
+
+  "width": 1000,
+  "height": 650,
+
+  "title": {
+    "text": "Total Length of Open Rail Trails by State",
+    "subtitle": "Darker green represents a greater total length of open trails (km). Hover over states for details.",
+    "anchor": "start",
+    "fontSize": 22,
+    "subtitleFontSize": 13,
+    "color": "#245B45",
+    "subtitleColor": "#68766D",
+    "offset": 18
+  },
+
+  "projection": {
+    "type": "equalEarth",
+    "center": [134, -27],
+    "scale": 800,
+    "translate": [500, 310]
+  },
+
+  "layer": [
+
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
+      },
+
+      "transform": [
+        {
+          "lookup": "properties.STATE_NAME",
+          "from": {
+            "data": {
+              "url": "data/state-trail-length.csv"
+            },
+            "key": "State",
+            "fields": [
+              "Total_Trail_KM",
+              "Open_Rail_Trails",
+              "Data_Year"
+            ]
+          }
+        }
+      ],
+
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#FFFFFF",
+        "strokeWidth": 2
+      },
+
+      "encoding": {
+
+        "color": {
+          "field": "Total_Trail_KM",
+          "type": "quantitative",
+          "scale": {
+            "domain": [0, 1200],
+            "range": [
+              "#E5EEE6",
+              "#B7D0BD",
+              "#79A889",
+              "#477D59",
+              "#245B45"
+            ]
+          },
+
+          "legend": {
+            "title": "Total trail length (km)",
+            "orient": "bottom",
+            "direction": "horizontal",
+            "gradientLength": 320,
+            "gradientThickness": 18,
+            "format": ".0f",
+            "titleFontSize": 13,
+            "labelFontSize": 11
+          }
+        },
+
+        "tooltip": [
+          {
+            "field": "properties.STATE_NAME",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "Total_Trail_KM",
+            "type": "quantitative",
+            "title": "Total trail length (km)",
+            "format": ".0f"
+          },
+          {
+            "field": "Open_Rail_Trails",
+            "type": "quantitative",
+            "title": "Number of open trails"
+          },
+          {
+            "field": "Data_Year",
+            "type": "quantitative",
+            "title": "Data year"
+          }
+        ]
+      }
+    },
+
+    {
+      "data": {
+        "values": [
+          {
+            "State": "WA",
+            "Longitude": 121,
+            "Latitude": -26
+          },
+          {
+            "State": "NT",
+            "Longitude": 133,
+            "Latitude": -19
+          },
+          {
+            "State": "QLD",
+            "Longitude": 145,
+            "Latitude": -22
+          },
+          {
+            "State": "SA",
+            "Longitude": 135,
+            "Latitude": -31
+          },
+          {
+            "State": "NSW",
+            "Longitude": 148,
+            "Latitude": -32
+          },
+          {
+            "State": "VIC",
+            "Longitude": 145,
+            "Latitude": -37
+          },
+          {
+            "State": "TAS",
+            "Longitude": 147,
+            "Latitude": -42
+          }
+        ]
+      },
+
+      "mark": {
+        "type": "text",
+        "font": "Arial",
+        "fontSize": 16,
+        "fontWeight": "bold",
+        "color": "#245B45",
+        "align": "center",
+        "baseline": "middle"
+      },
+
+      "encoding": {
+
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+
+        "text": {
+          "field": "State",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
+
+  "config": {
+
+    "background": "#FFFFFF",
+
+    "view": {
+      "stroke": null
+    },
+
+    "legend": {
+      "labelFont": "Arial",
+      "titleFont": "Arial",
+      "labelColor": "#46564C",
+      "titleColor": "#245B45"
+    }
+  }
+}

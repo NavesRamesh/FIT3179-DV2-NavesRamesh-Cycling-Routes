@@ -1,0 +1,34 @@
+Site,Location,Day_Type,Mean_Daily_Cyclists,Observed_Days,Min_Daily_Cyclists,Max_Daily_Cyclists
+M027,"Stanley Street/Annerley Road, South Brisbane",Weekday,2870.5,2,2850,2891
+M027,"Stanley Street/Annerley Road, South Brisbane",Weekend,2141.0,2,2004,2278
+M035,"Wynnum Rd North, Wynnum West",Weekday,399.0,2,346,452
+M035,"Wynnum Rd North, Wynnum West",Weekend,392.0,1,392,392
+M040,"Gladstone Road, Highgate Hill",Weekday,9828.0,1,9828,9828
+M040,"Gladstone Road, Highgate Hill",Weekend,10310.5,2,9976,10645
+M048,"Macquarie Street, St Lucia",Weekday,10157.0,2,10038,10276
+M048,"Macquarie Street, St Lucia",Weekend,4654.0,1,4654,4654
+M050,"Newmarket Railway Station, Newmarket",Weekday,1503.0,2,1262,1744
+M050,"Newmarket Railway Station, Newmarket",Weekend,617.0,2,520,714
+M053,"Toohey Road, Salisbury",Weekday,734.0,2,600,868
+M053,"Toohey Road, Salisbury",Weekend,418.0,2,380,456
+M054,"Shaw Road, Wooloowin",Weekday,8080.0,2,7568,8592
+M054,"Shaw Road, Wooloowin",Weekend,10192.0,2,8954,11430
+M055,"Mowbray Park, East Brisbane",Weekend,628.0,1,628,628
+M056,"Spencer Park, Newmarket",Weekday,6028.0,1,6028,6028
+M057,"Downfall Creek Bikeway, Kittyhawk Dr, Chermside",Weekday,447.0,2,430,464
+M057,"Downfall Creek Bikeway, Kittyhawk Dr, Chermside",Weekend,420.0,2,392,448
+M059,"Kedron Brook Bikeway, Mercer Park Junction, Kedron",Weekday,9142.0,2,9122,9162
+M059,"Kedron Brook Bikeway, Mercer Park Junction, Kedron",Weekend,9969.0,2,8126,11812
+M061,"Edward Street_Adelaide Street, Brisbane City",Weekday,11287.5,2,10524,12051
+M061,"Edward Street_Adelaide Street, Brisbane City",Weekend,6693.0,2,6360,7026
+M062,"George Street_Turbot Street, Brisbane City",Weekday,7846.5,2,7683,8010
+M062,"George Street_Turbot Street, Brisbane City",Weekend,4815.0,1,4815,4815
+M066N,"Nudgee Road - Hampden Street, Ascot",Weekday,2103.0,2,1814,2392
+M066N,"Nudgee Road - Hampden Street, Ascot",Weekend,2480.0,2,1038,3922
+M068,"Commercial Road_Wyandra Street, Teneriffe",Weekday,4089.0,2,3843,4335
+M068,"Commercial Road_Wyandra Street, Teneriffe",Weekend,3681.0,2,3498,3864
+M069,"Montague Road_Vulture Street, West End",Weekday,5562.0,1,5562,5562
+M069,"Montague Road_Vulture Street, West End",Weekend,5682.0,2,5610,5754
+M070,"Boundary Street_Vulture Street, West End",Weekday,7614.0,2,7380,7848
+M070,"Boundary Street_Vulture Street, West End",Weekend,6450.0,2,5655,7245
+M072,"Boundary St_Melbourne St, West End",Weekend,9397.5,2,9201,9594

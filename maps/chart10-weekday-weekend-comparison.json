@@ -1,0 +1,200 @@
+
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Scatter plot comparing average daily cyclist counts on weekdays and weekends at selected Brisbane monitoring locations in October 2025. Each point represents a monitoring site. The diagonal line indicates equal weekday and weekend counts.",
+  "data": {
+    "url": "data/chart10-weekday-weekend-comparison.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "pivot": "Day_Type",
+      "value": "Mean_Daily_Cyclists",
+      "groupby": ["Site", "Location"]
+    },
+    {
+      "filter": "isValid(datum.Weekday) && isValid(datum.Weekend)"
+    },
+    {
+      "calculate": "datum.Weekend - datum.Weekday",
+      "as": "Count_Difference"
+    },
+    {
+      "calculate": "datum.Weekend > datum.Weekday ? 'Weekend higher' : 'Weekday higher'",
+      "as": "Busier_Period"
+    }
+  ],
+  "width": 300,
+  "height": 300,
+  "title": {
+    "text": "Do Weekdays or Weekends Attract More Cyclists?",
+    "subtitle": "Average daily cyclist counts at selected Brisbane sites | October 2025",
+    "anchor": "start",
+    "fontSize": 15,
+    "subtitleFontSize": 10,
+    "color": "#245B45",
+    "subtitleColor": "#68766D",
+    "offset": 10
+  },
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {
+            "Weekday": 0,
+            "Weekend": 0
+          },
+          {
+            "Weekday": 12000,
+            "Weekend": 12000
+          }
+        ]
+      },
+      "mark": {
+        "type": "line",
+        "color": "#87958C",
+        "strokeDash": [6, 4],
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "x": {
+          "field": "Weekday",
+          "type": "quantitative",
+          "scale": {
+            "domain": [0, 12000]
+          }
+        },
+        "y": {
+          "field": "Weekend",
+          "type": "quantitative",
+          "scale": {
+            "domain": [0, 12000]
+          }
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 105,
+        "opacity": 0.9,
+        "stroke": "#FFFFFF",
+        "strokeWidth": 0.8
+      },
+      "encoding": {
+        "x": {
+          "field": "Weekday",
+          "type": "quantitative",
+          "title": "Average weekday cyclists",
+          "scale": {
+            "domain": [0, 12000]
+          },
+          "axis": {
+            "labelFontSize": 9,
+            "titleFontSize": 10,
+            "labelColor": "#52635A",
+            "titleColor": "#52635A",
+            "gridColor": "#E8EEE9",
+            "tickCount": 5,
+            "format": "~s"
+          }
+        },
+        "y": {
+          "field": "Weekend",
+          "type": "quantitative",
+          "title": "Average weekend cyclists",
+          "scale": {
+            "domain": [0, 12000]
+          },
+          "axis": {
+            "labelFontSize": 9,
+            "titleFontSize": 10,
+            "labelColor": "#52635A",
+            "titleColor": "#52635A",
+            "gridColor": "#E8EEE9",
+            "tickCount": 5,
+            "format": "~s"
+          }
+        },
+        "color": {
+          "field": "Busier_Period",
+          "type": "nominal",
+          "title": "Higher average",
+          "scale": {
+            "domain": [
+              "Weekday higher",
+              "Weekend higher"
+            ],
+            "range": [
+              "#245B45",
+              "#D97942"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "titleFontSize": 9,
+            "labelFontSize": 9,
+            "symbolSize": 65
+          }
+        },
+        "tooltip": [
+          {
+            "field": "Site",
+            "type": "nominal",
+            "title": "Site code"
+          },
+          {
+            "field": "Location",
+            "type": "nominal",
+            "title": "Location"
+          },
+          {
+            "field": "Weekday",
+            "type": "quantitative",
+            "title": "Average weekday cyclists",
+            "format": ",.0f"
+          },
+          {
+            "field": "Weekend",
+            "type": "quantitative",
+            "title": "Average weekend cyclists",
+            "format": ",.0f"
+          },
+          {
+            "field": "Count_Difference",
+            "type": "quantitative",
+            "title": "Weekend minus weekday",
+            "format": "+,.0f"
+          },
+          {
+            "field": "Busier_Period",
+            "type": "nominal",
+            "title": "Higher average"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "background": "#FFFFFF",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "grid": true,
+      "domainColor": "#CBD5CE",
+      "tickColor": "#CBD5CE",
+      "labelFont": "Arial",
+      "titleFont": "Arial",
+      "titlePadding": 8
+    },
+    "legend": {
+      "labelFont": "Arial",
+      "titleFont": "Arial"
+    }
+  }
+}

@@ -1,0 +1,161 @@
+
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+
+  "description": "Proportional symbol map showing the geographical distribution and lengths of recreational cycling trails across Australia.",
+
+  "width": 850,
+  "height": 550,
+
+  "projection": {
+    "type": "equalEarth"
+  },
+
+  "title": {
+    "text": "Australia's Recreational Cycling Trails",
+    "subtitle": "Circle size represents trail length, locations are approximate",
+    "anchor": "start",
+    "fontSize": 22,
+    "subtitleFontSize": 13,
+    "color": "#245B45",
+    "subtitleColor": "#68766D",
+    "offset": 20
+  },
+
+  "layer": [
+
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+
+      "transform": [
+        {
+          "filter": "datum.id == 36"
+        }
+      ],
+
+      "mark": {
+        "type": "geoshape",
+        "fill": "#E5EEE6",
+        "stroke": "#527B65",
+        "strokeWidth": 1.5
+      }
+    },
+
+    {
+      "data": {
+        "url": "data/cycling-trails.csv"
+      },
+
+      "mark": {
+        "type": "circle",
+        "color": "#D97942",
+        "opacity": 0.75,
+        "stroke": "#FFFFFF",
+        "strokeWidth": 1.5
+      },
+
+      "encoding": {
+
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+
+        "size": {
+          "field": "Length_KM",
+          "type": "quantitative",
+          "scale": {
+            "range": [200, 1000],
+            "zero": false
+          },
+          "legend": {
+            "title": "Trail length (km)",
+            "orient": "bottom",
+            "format": ".0f"
+          }
+        },
+
+        "tooltip": [
+          {
+            "field": "Trail",
+            "type": "nominal",
+            "title": "Trail name"
+          },
+          {
+            "field": "State",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "Length_KM",
+            "type": "quantitative",
+            "title": "Trail length (km)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+
+    {
+      "data": {
+        "url": "data/cycling-trails.csv"
+      },
+
+      "mark": {
+        "type": "text",
+        "font": "Arial",
+        "fontSize": 9,
+        "fontWeight": "bold",
+        "color": "#26352F",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 9,
+        "dy": -9
+      },
+
+      "encoding": {
+
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+
+        "text": {
+          "field": "Trail",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
+
+  "config": {
+    "background": "#FFFFFF",
+
+    "view": {
+      "stroke": null
+    },
+
+    "legend": {
+      "labelFont": "Arial",
+      "titleFont": "Arial",
+      "labelColor": "#46564C",
+      "titleColor": "#245B45"
+    }
+  }
+}

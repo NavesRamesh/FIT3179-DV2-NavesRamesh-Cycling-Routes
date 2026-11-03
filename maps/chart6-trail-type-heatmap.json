@@ -1,0 +1,115 @@
+
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Heatmap comparing the number of recorded cycling trails by state and trail type.",
+  "width": 420,
+  "height": 340,
+  "title": {
+    "text": "Trail Types Across Australian States",
+    "subtitle": "Darker red cells indicate more recorded trails.",
+    "anchor": "start",
+    "font": "Arial",
+    "fontSize": 17,
+    "subtitleFontSize": 11,
+    "color": "#174A70"
+  },
+  "data": {
+    "url": "data/cycling-trails.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "aggregate": [
+        {"op": "count", "as": "Trail_Count"}
+      ],
+      "groupby": ["State", "Trail_Type"]
+    }
+  ],
+  "mark": {
+    "type": "rect",
+    "stroke": "white",
+    "strokeWidth": 2,
+    "cornerRadius": 3
+  },
+  "encoding": {
+    "x": {
+      "field": "Trail_Type",
+      "type": "nominal",
+      "title": "Trail type",
+      "sort": [
+        "Recreational rail trail",
+        "Shared path / cycling route",
+        "Recreational trail"
+      ],
+      "axis": {
+        "labelAngle": -25,
+        "labelLimit": 150,
+        "labelFontSize": 10,
+        "titleFontSize": 11
+      }
+    },
+    "y": {
+      "field": "State",
+      "type": "nominal",
+      "title": "State",
+      "sort": [
+        "Queensland",
+        "New South Wales",
+        "Victoria",
+        "South Australia",
+        "Western Australia",
+        "Tasmania",
+        "Northern Territory"
+      ],
+      "axis": {
+        "labelFontSize": 10,
+        "titleFontSize": 11
+      }
+    },
+    "color": {
+      "field": "Trail_Count",
+      "type": "quantitative",
+      "title": "Number of trails",
+      "scale": {
+        "domain": [0, 5],
+        "range": [
+          "#FCE8E6",
+          "#F3B2AA",
+          "#E77C72",
+          "#D94A45",
+          "#9E2929"
+        ]
+      },
+      "legend": {
+        "orient": "bottom",
+        "gradientLength": 180
+      }
+    },
+    "tooltip": [
+      {
+        "field": "State",
+        "type": "nominal",
+        "title": "State"
+      },
+      {
+        "field": "Trail_Type",
+        "type": "nominal",
+        "title": "Trail type"
+      },
+      {
+        "field": "Trail_Count",
+        "type": "quantitative",
+        "title": "Number of trails"
+      }
+    ]
+  },
+  "config": {
+    "background": "white",
+    "view": {"stroke": null},
+    "axis": {
+      "labelColor": "#46564C",
+      "titleColor": "#174A70",
+      "grid": false
+    }
+  }
+}

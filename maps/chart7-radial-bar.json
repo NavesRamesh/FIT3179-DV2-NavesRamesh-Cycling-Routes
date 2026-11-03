@@ -1,0 +1,161 @@
+
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Radial bar chart showing estimated adult cycling participation by age group in Australia, July 2025 to June 2026.",
+  "width": 500,
+  "height": 470,
+  "title": {
+    "text": "The Age of Cycling",
+    "subtitle": "Estimated adult cycling participants by age group | Australia, 2025–26",
+    "anchor": "start",
+    "fontSize": 20,
+    "subtitleFontSize": 12,
+    "offset": 18
+  },
+  "data": {
+    "url": "data/chart7-cycling-age-groups.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "arc",
+        "innerRadius": 75,
+        "cornerRadius": 4,
+        "padAngle": 0.012,
+        "stroke": "white",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "theta": {
+          "field": "Age_Group",
+          "type": "ordinal",
+          "sort": [
+            "15–17",
+            "18–24",
+            "25–34",
+            "35–44",
+            "45–54",
+            "55–64",
+            "65+"
+          ]
+        },
+        "radius": {
+          "field": "Estimated_Participants",
+          "type": "quantitative",
+          "scale": {
+            "domain": [0, 400000],
+            "range": [95, 205]
+          },
+          "legend": null
+        },
+        "color": {
+          "field": "Age_Group",
+          "type": "ordinal",
+          "scale": {
+            "domain": [
+              "15–17",
+              "18–24",
+              "25–34",
+              "35–44",
+              "45–54",
+              "55–64",
+              "65+"
+            ],
+            "range": [
+              "#E9D5FF",
+              "#D8B4FE",
+              "#C084FC",
+              "#A855F7",
+              "#9333EA",
+              "#7E22CE",
+              "#581C87"
+            ]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "Age_Group",
+            "type": "ordinal",
+            "title": "Age group"
+          },
+          {
+            "field": "Estimated_Participants",
+            "type": "quantitative",
+            "title": "Estimated participants",
+            "format": ","
+          },
+          {
+            "field": "Participation_Rate_Percent",
+            "type": "quantitative",
+            "title": "Participation rate",
+            "format": ".2f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#581C87",
+        "radius": 225
+      },
+      "encoding": {
+        "theta": {
+          "field": "Age_Group",
+          "type": "ordinal",
+          "sort": [
+            "15–17",
+            "18–24",
+            "25–34",
+            "35–44",
+            "45–54",
+            "55–64",
+            "65+"
+          ]
+        },
+        "text": {
+          "field": "Age_Group"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 19,
+        "fontWeight": "bold",
+        "color": "#581C87",
+        "dy": -8
+      },
+      "encoding": {
+        "text": {
+          "value": "1.86M"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "color": "#7E22CE",
+        "dy": 14
+      },
+      "encoding": {
+        "text": {
+          "value": "adult cyclists"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Arial"
+  }
+}

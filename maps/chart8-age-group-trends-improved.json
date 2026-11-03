@@ -1,0 +1,191 @@
+
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Cycling participation rates by adult age group across three AusPlay survey periods.",
+  "width": 700,
+  "height": 420,
+  "title": {
+    "text": "How Has Cycling Participation Changed Across Age Groups?",
+    "subtitle": "Adult cycling participation rates by age group, 2023–24 to 2025–26",
+    "anchor": "start",
+    "fontSize": 20,
+    "subtitleFontSize": 12,
+    "offset": 18
+  },
+  "data": {
+    "url": "data/chart8-age-group-trends.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "Period",
+      "type": "ordinal",
+      "sort": ["2023–24", "2024–25", "2025–26"],
+      "scale": {
+        "padding": 0.3
+      },
+      "axis": {
+        "title": "Survey period",
+        "labelAngle": 0,
+        "labelFontSize": 13,
+        "titleFontSize": 13,
+        "grid": false,
+        "labelPadding": 10
+      }
+    },
+    "y": {
+      "field": "Participation_Rate_Percent",
+      "type": "quantitative",
+      "scale": {
+        "domain": [0, 13],
+        "zero": true,
+        "nice": false
+      },
+      "axis": {
+        "title": "Participation rate (%)",
+        "labelExpr": "datum.value + '%'",
+        "titleFontSize": 13,
+        "labelFontSize": 12,
+        "grid": true,
+        "tickCount": 7
+      }
+    },
+    "color": {
+      "field": "Age_Group",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "15–17",
+          "18–24",
+          "25–34",
+          "35–44",
+          "45–54",
+          "55–64",
+          "65+"
+        ],
+        "range": [
+          "#E76F51",
+          "#F4A261",
+          "#E9C46A",
+          "#2A9D8F",
+          "#457B9D",
+          "#7B61A8",
+          "#B56576"
+        ]
+      },
+      "legend": {
+        "title": "Age group",
+        "orient": "top",
+        "direction": "horizontal",
+        "labelFontSize": 12,
+        "symbolSize": 90,
+        "columns": 4
+      }
+    },
+    "detail": {
+      "field": "Age_Group"
+    },
+    "order": {
+      "field": "Period_Order",
+      "type": "quantitative"
+    },
+    "tooltip": [
+      {
+        "field": "Age_Group",
+        "type": "nominal",
+        "title": "Age group"
+      },
+      {
+        "field": "Period",
+        "type": "ordinal",
+        "title": "Survey period"
+      },
+      {
+        "field": "Participation_Rate_Percent",
+        "type": "quantitative",
+        "title": "Participation rate",
+        "format": ".2f"
+      }
+    ]
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "point": {
+          "filled": true,
+          "size": 85
+        },
+        "strokeWidth": 2.8
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.Period == '2025–26'"
+        },
+        {
+          "calculate": "format(datum.Participation_Rate_Percent, '.2f') + '%'",
+          "as": "Final_Label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 9,
+        "fontSize": 11,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "text": {
+          "field": "Final_Label",
+          "type": "nominal"
+        },
+        "color": {
+          "field": "Age_Group",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "15–17",
+              "18–24",
+              "25–34",
+              "35–44",
+              "45–54",
+              "55–64",
+              "65+"
+            ],
+            "range": [
+              "#E76F51",
+              "#F4A261",
+              "#E9C46A",
+              "#2A9D8F",
+              "#457B9D",
+              "#7B61A8",
+              "#B56576"
+            ]
+          },
+          "legend": null
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#344054",
+      "titleColor": "#344054",
+      "domainColor": "#AAB4C0",
+      "tickColor": "#AAB4C0",
+      "gridColor": "#E8EDF0",
+      "gridOpacity": 0.8
+    },
+    "legend": {
+      "labelColor": "#344054"
+    }
+  }
+}

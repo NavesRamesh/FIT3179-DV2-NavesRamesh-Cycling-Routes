@@ -1,0 +1,156 @@
+
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "description": "Treemap showing the relative lengths of recorded cycling trails, grouped by Australian state.",
+  "width": 480,
+  "height": 340,
+  "padding": 5,
+  "title": {
+    "text": "Comparing the Lengths of Individual Trails",
+    "subtitle": "Larger rectangles represent longer trails. Trails are grouped by state.",
+    "anchor": "start",
+    "font": "Arial",
+    "fontSize": 17,
+    "subtitleFontSize": 11,
+    "color": "#174A70"
+  },
+  "data": [
+    {
+      "name": "trails",
+      "values": [
+        {"id": "root", "parent": null, "name": "Australia", "size": 1276, "state": "Australia"},
+
+        {"id": "QLD", "parent": "root", "name": "Queensland", "size": 343, "state": "Queensland"},
+        {"id": "VIC", "parent": "root", "name": "Victoria", "size": 475, "state": "Victoria"},
+        {"id": "SA", "parent": "root", "name": "South Australia", "size": 156, "state": "South Australia"},
+        {"id": "WA", "parent": "root", "name": "Western Australia", "size": 207, "state": "Western Australia"},
+        {"id": "NSW", "parent": "root", "name": "New South Wales", "size": 32, "state": "New South Wales"},
+        {"id": "TAS", "parent": "root", "name": "Tasmania", "size": 35, "state": "Tasmania"},
+        {"id": "NT", "parent": "root", "name": "Northern Territory", "size": 28, "state": "Northern Territory"},
+
+        {"id": "q1", "parent": "QLD", "name": "Brisbane Valley Rail Trail", "size": 161, "state": "Queensland"},
+        {"id": "q2", "parent": "QLD", "name": "Boyne Burnett Inland Rail Trail", "size": 93, "state": "Queensland"},
+        {"id": "q3", "parent": "QLD", "name": "Kilkivan–Kingaroy Rail Trail", "size": 89, "state": "Queensland"},
+
+        {"id": "v1", "parent": "VIC", "name": "Murray to Mountains Rail Trail", "size": 137, "state": "Victoria"},
+        {"id": "v2", "parent": "VIC", "name": "Great Victorian Rail Trail", "size": 135, "state": "Victoria"},
+        {"id": "v3", "parent": "VIC", "name": "East Gippsland Rail Trail", "size": 96, "state": "Victoria"},
+        {"id": "v4", "parent": "VIC", "name": "High Country Rail Trail", "size": 81, "state": "Victoria"},
+        {"id": "v5", "parent": "VIC", "name": "Djerring Rail Trail", "size": 26, "state": "Victoria"},
+
+        {"id": "s1", "parent": "SA", "name": "Riesling and Rattler Trails", "size": 53, "state": "South Australia"},
+        {"id": "s2", "parent": "SA", "name": "Southern Flinders Rail Trail", "size": 80, "state": "South Australia"},
+        {"id": "s3", "parent": "SA", "name": "Outer Harbor Greenway Railside Trail", "size": 23, "state": "South Australia"},
+
+        {"id": "w1", "parent": "WA", "name": "Kep Track", "size": 75, "state": "Western Australia"},
+        {"id": "w2", "parent": "WA", "name": "Railway Reserves Heritage Trail", "size": 59, "state": "Western Australia"},
+        {"id": "w3", "parent": "WA", "name": "Wadandi Track", "size": 53, "state": "Western Australia"},
+        {"id": "w4", "parent": "WA", "name": "Perth–Fremantle Principal Shared Path", "size": 20, "state": "Western Australia"},
+
+        {"id": "n1", "parent": "NSW", "name": "Fernleigh Track rail trail", "size": 16, "state": "New South Wales"},
+        {"id": "n2", "parent": "NSW", "name": "Parramatta to Liverpool rail trail", "size": 16, "state": "New South Wales"},
+
+        {"id": "t1", "parent": "TAS", "name": "Hobart Intercity Cycleway", "size": 15, "state": "Tasmania"},
+        {"id": "t2", "parent": "TAS", "name": "North-West Tasmanian Coastal Pathway", "size": 20, "state": "Tasmania"},
+
+        {"id": "nt1", "parent": "NT", "name": "Darwin to Adelaide River Rail Trail", "size": 28, "state": "Northern Territory"}
+      ],
+      "transform": [
+        {
+          "type": "stratify",
+          "key": "id",
+          "parentKey": "parent"
+        },
+        {
+          "type": "treemap",
+          "field": "size",
+          "sort": {"field": "size", "order": "descending"},
+          "size": [
+            {"signal": "width"},
+            {"signal": "height"}
+          ],
+          "method": "squarify",
+          "ratio": 1.6,
+          "paddingInner": 3,
+          "paddingOuter": 3
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "stateColor",
+      "type": "ordinal",
+      "domain": [
+        "Queensland",
+        "Victoria",
+        "South Australia",
+        "Western Australia",
+        "New South Wales",
+        "Tasmania",
+        "Northern Territory"
+      ],
+      "range": [
+        "#D94A45",
+        "#397EAD",
+        "#E58A45",
+        "#8064A9",
+        "#C66A83",
+        "#5B9B91",
+        "#D2A63C"
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data": "trails"},
+      "encode": {
+        "enter": {
+          "stroke": {"value": "white"},
+          "strokeWidth": {"value": 2},
+          "cornerRadius": {"value": 3}
+        },
+        "update": {
+          "x": {"field": "x0"},
+          "x2": {"field": "x1"},
+          "y": {"field": "y0"},
+          "y2": {"field": "y1"},
+          "fill": {
+            "scale": "stateColor",
+            "field": "state"
+          },
+          "fillOpacity": {
+            "signal": "datum.depth === 1 ? 0.55 : 1"
+          },
+          "tooltip": {
+            "signal": "{'Trail': datum.name, 'State': datum.state, 'Length (km)': datum.size}"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "trails"},
+      "encode": {
+        "enter": {
+          "align": {"value": "center"},
+          "baseline": {"value": "middle"},
+          "font": {"value": "Arial"},
+          "fontSize": {"value": 10},
+          "fontWeight": {"value": "bold"},
+          "fill": {"value": "white"}
+        },
+        "update": {
+          "x": {"signal": "(datum.x0 + datum.x1) / 2"},
+          "y": {"signal": "(datum.y0 + datum.y1) / 2"},
+          "text": {
+            "signal": "datum.depth === 1 ? datum.name : (datum.x1 - datum.x0 > 65 && datum.y1 - datum.y0 > 30 ? datum.name : '')"
+          },
+          "limit": {"signal": "datum.x1 - datum.x0 - 8"},
+          "opacity": {"signal": "datum.depth === 1 ? 1 : 0.95"}
+        }
+      }
+    }
+  ]
+}
